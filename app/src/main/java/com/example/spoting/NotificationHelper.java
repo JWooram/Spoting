@@ -56,7 +56,7 @@ public class NotificationHelper extends ContextWrapper {
                 this,
                 267,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE
         );
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
