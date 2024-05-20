@@ -1,4 +1,4 @@
-package com.example.Spoting;
+package com.example.spoting;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

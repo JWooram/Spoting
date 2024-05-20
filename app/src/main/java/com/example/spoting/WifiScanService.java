@@ -74,6 +74,10 @@ public class WifiScanService extends Service {
             }
         }, 0); // 초기 실행 시간 (즉시 시작)
     }
+    public void stopWifiScan() {
+        handler.removeCallbacksAndMessages(null);
+        stopSelf();
+    }
 
     @Override
     public void onDestroy() {
