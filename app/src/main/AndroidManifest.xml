@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- 지오펜스 구현 위한 허용 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- 로그인 구현 위한 허용 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 실행할 어플의 패키지 이름 -->
     <queries>
-        <package android:name="com.android.chrome"/>
+        <package android:name="com.android.chrome" />
     </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,9 +23,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MapsActivity"
+            android:name=".LockerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FirstAuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +37,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false"/> <!-- 서비스 및 브로드캐스트리시버 등록 -->
         <service
             android:name=".WifiScanService"
             android:enabled="true"
@@ -45,11 +60,9 @@
             android:enabled="true"
             android:exported="true" />
 
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBOxWoSNJFr_RVehG5SeU0dit1dO-7R7D0" /> <!--여기는 개발자분 구글맵 API로 수정해야 해요-->
-
+            android:value="AIzaSyBOxWoSNJFr_RVehG5SeU0dit1dO-7R7D0" />
     </application>
 
 </manifest>

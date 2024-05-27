@@ -44,6 +44,7 @@ public class GeofenceHelper extends ContextWrapper {
      */
     public Geofence getGeofence(String ID, LatLng latLng, float radius, int transitionTypes) {
         Log.d(TAG, "지오펜스 Get");
+        Log.d(TAG, String.valueOf(latLng.latitude)+ String.valueOf(latLng.longitude));
         return new Geofence.Builder()
                 .setCircularRegion(latLng.latitude, latLng.longitude, radius)
                 .setRequestId(ID)
@@ -60,6 +61,7 @@ public class GeofenceHelper extends ContextWrapper {
     public PendingIntent getPendingIntent() {
         Log.d(TAG, "인텐트 얻기");
         if (pendingIntent != null) {
+            Log.d(TAG, "반환?");
             return pendingIntent;
         }
         Intent intent = new Intent(this, GeofenceBroadcastReceiver.class);

@@ -5,9 +5,6 @@ import static android.content.Context.WIFI_SERVICE;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,11 +13,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +24,6 @@ import java.util.Objects;
 
 public class WifiBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "WifiBroadcastReceiver";
-    private static final String CHANNEL_ID = "wifi_scan_channel";
     WifiManager wifiManager;
     List<ScanResult> scanResultList;
 
@@ -57,12 +51,11 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
                 ScanResult scanResult = scanResultList.get(i);
 
                 if (storeNames.contains(scanResult.SSID)){
-
                     if(scanResult.level > thresHold){
                         Log.d(TAG, "Wi-Fi AP SSID : " + scanResult.SSID);
                         Log.d(TAG, "Wi-Fi AP RSSI : " + scanResult.level);
-                        sendNotification(context, "Found " + scanResult.SSID, "Tap to open app", "com.android.chrome");
-                        context.stopService(new Intent(context, WifiScanService.class));
+                        launchExternalApp(context);
+                        return;
                     }
 
                 }
@@ -70,27 +63,17 @@ public class WifiBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void sendNotification(Context context, String title, String message, String packageName) {
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "WiFi Scan Channel", NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription("Channel for WiFi Scan Results");
-            notificationManager.createNotificationChannel(channel);
-        }
+    private void launchExternalApp(Context context) {
+        String packageName = "com.android.chrome";
+        String activityName = "com.android.chrome.MainActivity";
 
         Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-
-        notificationManager.notify(1, builder.build());
-        Log.d(TAG, "Notification sent to launch app: " + packageName);
+        try {
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(launchIntent);
+        } catch (ActivityNotFoundException e) {
+            Log.e(TAG, "Activity not found", e);
+        }
     }
 }

@@ -11,4 +11,5 @@
     <color name="NavBottomBar">#FF1E2023</color>
     <color name="MainBg">#FF121415</color>
     <color name="PremiumBtn">#FF6FEAC8</color>
+    <color name="Subtext">#FFC9CBD0</color>
 </resources>
