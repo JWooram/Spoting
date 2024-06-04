@@ -28,7 +28,7 @@ public class ReservationRequest extends StringRequest {
         String oneHourAfterDateTime = getOneHourAfterDateTime();
 
         map = new HashMap<>();
-        map.put("email",userID);
+        map.put("user_id",userID);
         map.put("reservation_date", currentDateTime);
         map.put("reservation_date_after", oneHourAfterDateTime);
         Log.d(TAG, "데이터 서버로 송신 요청");

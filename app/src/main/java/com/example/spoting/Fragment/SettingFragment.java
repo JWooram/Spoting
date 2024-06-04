@@ -5,15 +5,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.spoting.GeofenceBroadcastReceiver;
 import com.example.spoting.R;
-import com.example.spoting.SaveSharedPreference;
 
 
 public class SettingFragment extends Fragment {

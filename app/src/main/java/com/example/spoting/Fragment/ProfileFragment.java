@@ -1,14 +1,20 @@
 package com.example.spoting.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.spoting.FirstAuthActivity;
 import com.example.spoting.R;
+import com.example.spoting.SaveSharedPreference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,5 +68,30 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // 프로필 화면의 로그아웃 버튼을 찾아냅니다.
+        TextView profileLogoutButton = view.findViewById(R.id.profilefragment_logout);
+
+        // 로그아웃 버튼을 클릭했을 때의 이벤트 처리
+        profileLogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout(); // 로그아웃 메소드 호출
+            }
+        });
+    }
+    private void logout() {
+        // SharedPreferences에서 사용자 정보를 제거합니다.
+        SaveSharedPreference.clearUserInfo(getContext());
+
+        // 자동 로그인 체크 부분을 수정하여, 로그인 화면으로 이동하도록 변경합니다.
+        Intent intent = new Intent(getContext(), FirstAuthActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

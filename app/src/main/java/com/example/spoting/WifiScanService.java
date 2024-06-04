@@ -1,10 +1,8 @@
 package com.example.spoting;
 
-import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.IBinder;
@@ -12,8 +10,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import java.util.List;
-import java.util.Objects;
+import com.example.spoting.Receiver.WifiBroadcastReceiver;
 
 public class WifiScanService extends Service {
     private static final String TAG = "WifiScanService";

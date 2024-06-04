@@ -34,11 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         Button btn_signin = findViewById(R.id.signIn_btn);
         TextView btn_signup = findViewById(R.id.SignUp_btn);
 
-//        Map<String, String> loginInfo = SharedPreferencesManager.getLoginInfo(this);
-//        if (!loginInfo.isEmpty()){
-//            String email    = loginInfo.get("email");
-//            String password = loginInfo.get("password");
-//        }
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

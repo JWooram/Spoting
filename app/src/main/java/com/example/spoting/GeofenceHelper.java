@@ -6,6 +6,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.spoting.Receiver.GeofenceBroadcastReceiver;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
@@ -16,7 +17,7 @@ public class GeofenceHelper extends ContextWrapper {
 
     private static final String TAG = "GeofenceHelper";
     private PendingIntent pendingIntent;
-
+    private int requestCodeCounter = 0;
     public GeofenceHelper(Context base) {
         super(base);
     }
@@ -43,7 +44,7 @@ public class GeofenceHelper extends ContextWrapper {
      * @return Geofence 객체
      */
     public Geofence getGeofence(String ID, LatLng latLng, float radius, int transitionTypes) {
-        Log.d(TAG, "지오펜스 Get");
+        Log.d(TAG, "지오펜스 Build");
         Log.d(TAG, String.valueOf(latLng.latitude)+ String.valueOf(latLng.longitude));
         return new Geofence.Builder()
                 .setCircularRegion(latLng.latitude, latLng.longitude, radius)
@@ -65,8 +66,8 @@ public class GeofenceHelper extends ContextWrapper {
             return pendingIntent;
         }
         Intent intent = new Intent(this, GeofenceBroadcastReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, 2607, intent, PendingIntent.FLAG_MUTABLE);
-        return pendingIntent;
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_MUTABLE);
+            return pendingIntent;
     }
 
     /**
