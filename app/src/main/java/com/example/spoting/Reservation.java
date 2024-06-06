@@ -3,6 +3,8 @@ package com.example.spoting;
 import android.util.Log;
 
 public class Reservation {
+
+    private String checkInfo;
     private int reservation_id;
     private String user_name;
     private String user_email;
@@ -13,9 +15,18 @@ public class Reservation {
     private String age_range;
     private String lockerID;
 
+    public String getCheckInfo() {
+        return this.checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
+    }
+    public void clearCheckInfo() {this.checkInfo = null;}
     public String getUser_name() {
         return this.user_name;
     }
+
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
@@ -75,4 +86,5 @@ public class Reservation {
     public void setLockerID(String lockerID) {
         this.lockerID = lockerID;
     }
+    public void clearLockerID() {this.lockerID = null;}
 }

@@ -56,6 +56,17 @@ public class MapsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maps);
 
         requestLocationPermissions();
+//        startGeofenceService();
+        String lockerID = getIntent().getStringExtra("locker_id");
+        if (lockerID != null) {
+            Log.d(TAG, "lockerID " + lockerID);
+            Bundle bundle = new Bundle();
+            bundle.putString("locker_id", lockerID);
+            fragmentHome.setArguments(bundle);
+        } else {
+            Log.e(TAG, "lockerID is null");
+            // 처리할 예외 상황에 대한 로직 추가
+        }
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, fragmentSetting, "fragmentSetting").hide(fragmentSetting)

@@ -1,5 +1,6 @@
 package com.example.spoting.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -67,7 +68,12 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_profile, container, false);
+        Context context = getContext();
+        TextView userNameView = rootView.findViewById(R.id.user_name);
+
+        userNameView.setText(SaveSharedPreference.getUserName(context));
+        return rootView;
 
     }
     @Override

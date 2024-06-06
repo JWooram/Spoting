@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String userPass1 = jsonObject.getString("userPassword");
                                 String userName = jsonObject.getString("userName");
 
-                                Toast.makeText(getApplicationContext(), "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getApplicationContext(), "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
 
                                 SaveSharedPreference.setUserID(LoginActivity.this, userID1);

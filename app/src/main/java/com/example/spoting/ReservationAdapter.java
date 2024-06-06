@@ -34,38 +34,42 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Reservation reservation = reservationList.get(position);
-        holder.userName.setText(String.valueOf(reservation.getUser_name()));
+//        holder.checkInfo.setText("체크인 전");
         holder.reservationDate.setText(String.valueOf(reservation.getReservation_date()));
         holder.courseName.setText(String.valueOf(reservation.getCourse_name()));
         holder.headcount.setText(String.valueOf(reservation.getHeadcount()));
         holder.ageRange.setText(String.valueOf(reservation.getAge_range()));
+        holder.userName.setText(reservation.getUser_name());
+//        holder.lockerID.setText("체크인 후 락커 번호가 표시됩니다.");
         Log.d(TAG, "onBindViewHolder: " + reservation.getLockerID());
         holder.lockerID.setText((reservation.getLockerID() != null ? "회원님의 락커 번호는 "+reservation.getLockerID() + "입니다." : "체크인 후 락커 번호가 표시됩니다."));
+        holder.checkInfo.setText((reservation.getCheckInfo() != null ? "체크인 완료" : "체크인 전"));
     }
 
     @Override
     public int getItemCount() {
         return reservationList.size();
-
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView userName, reservationDate, courseName, headcount, ageRange, lockerID;
+        public TextView checkInfo, userName, reservationDate, courseName, headcount, ageRange, lockerID;
 
         public ViewHolder(@NonNull View itemView) {
                 super(itemView);
+                checkInfo = itemView.findViewById(R.id.homefragment_check);
                 userName = itemView.findViewById(R.id.homefragment_userName);
                 courseName = itemView.findViewById(R.id.homefragment_courseName);
                 reservationDate = itemView.findViewById(R.id.homefragment_timeInformation);
-                headcount = itemView.findViewById(R.id.homefragment_headCount);
-                ageRange = itemView.findViewById(R.id.homefragment_age_range);
-                lockerID = itemView.findViewById(R.id.homefragment_userLockerID);
-        }
+        headcount = itemView.findViewById(R.id.homefragment_headCount);
+        ageRange = itemView.findViewById(R.id.homefragment_age_range);
+        lockerID = itemView.findViewById(R.id.homefragment_userLockerID);
     }
+}
     public void updateLocker(int position, String newLockerInfo) {
         Log.d(TAG, "updateLocker: " + newLockerInfo);
         Log.d(TAG, "예약 객체 사이즈" + reservationList.size());
         reservationList.get(position).setLockerID(newLockerInfo);
+        reservationList.get(position).setCheckInfo("체크인 완료");
         notifyItemChanged(position);
     }
 }

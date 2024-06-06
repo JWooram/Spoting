@@ -7,9 +7,6 @@ import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.example.spoting.OnLockerReceivedListener;
-import com.example.spoting.ReservationAdapter;
-
 public class LockerBroadcastReceiver extends BroadcastReceiver {
     public static final String ACTION_DATA_RECEIVED = "com.example.ACTION_DATA_RECEIVED";
     private static final String TAG = "LockerBroadcastReceiver";

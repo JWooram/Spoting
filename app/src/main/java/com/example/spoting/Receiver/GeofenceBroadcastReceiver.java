@@ -89,22 +89,11 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void StartMainActivity(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            Intent i = new Intent(context, MapsActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_MUTABLE);
-
-            try {
-                pendingIntent.send();
-            } catch (PendingIntent.CanceledException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Intent i = new Intent(context, MapsActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(i);
-        }
+    private void StartMainActivity(Context context, String lockerID) {
+        Intent i = new Intent(context, MapsActivity.class);
+        i.putExtra("locker_id", lockerID);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
     }
 
 
@@ -120,13 +109,13 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                         String lockerID = jsonObject.getString("locker_id");
                         Log.d(TAG, "할당된 라커 ID :" + lockerID);
 
-                        Intent updateIntent = new Intent(context, LockerBroadcastReceiver.class);
-                        updateIntent.setAction(ACTION_DATA_RECEIVED);
-                        updateIntent.putExtra("locker_id", lockerID);
-                        Log.d(TAG, "인텐트 생성" + updateIntent);
-                        context.sendBroadcast(updateIntent);
+//                        Intent updateIntent = new Intent(context, LockerBroadcastReceiver.class);
+//                        updateIntent.setAction(ACTION_DATA_RECEIVED);
+//                        updateIntent.putExtra("locker_id", lockerID);
+//                        Log.d(TAG, "인텐트 생성" + updateIntent);
+//                        context.sendBroadcast(updateIntent);
 
-//                        StartMainActivity(context);
+                        StartMainActivity(context, lockerID);
 
                     } else {
                         Log.d(TAG, "남은 라커 없음");
